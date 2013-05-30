@@ -1,6 +1,30 @@
 This is a mirror of http://www.vim.org/scripts/script.php?script_id=356
 
-This plugin contains functions/mappings/commands to enable Vim to access several databases. Current databases supported are: Mysql, PostgreSQL, Ingres, Oracle, Oracle Rdb (VMS), Sybase Adaptive Server Anywhere, Sybase Adaptive Server Enterprise, Microsoft SQL Server, DB2, Interbase and SQLite and ODBC are supported.  New to version 5.x of dbext introduces the support for Perl's DBI layer.  If the database you are using is not *natively* supported by dbext, but has a DBI interface, dbext's standard feature set is available.  For those already using dbext, the DBI interface should provide a performance boost when running statements against your database.  DBI also provides an ODBC bridge, therefore any ODBC compliant database is also accessible.
+created by
+Peter Bagyinszki
+ 
+script type
+utility
+ 
+description
+This plugin contains functions/mappings/commands to enable Vim to access several databases.
+
+Current databases supported are:
+Mysql,
+PostgreSQL,
+Ingres,
+Oracle,
+Oracle Rdb (VMS),
+Sybase Adaptive Server Anywhere,
+Sybase Adaptive Server Enterprise,
+Microsoft SQL Server,
+DB2,
+Interbase,
+SQLite,
+SAP HANA,
+ODBC / Perl DBI
+
+For Perl's DBI layer if the database you are using is not *natively* supported by dbext, but has a DBI interface, dbext's standard feature set is available.  For those already using dbext, the DBI interface should provide a performance boost when running statements against your database.  DBI also provides an ODBC bridge, therefore any ODBC compliant database is also accessible.
 
 NOTE: As of version 4.0 this plugin requires Vim 7.
 Version 5.0 supports Vim 7's autoload feature.
@@ -70,7 +94,7 @@ The current supported languages are:
         PHP, Java, JSP, JavaScript, JProperties, Perl, SQL, Vim
 
 For example assume you had the following Java code:
-String mySQL = 
+String mySQL =
     "SELECT s.script, ts.event, t.name                  " +
     "     , s.script_language, sv.name                  " +
     "  FROM ml_script s, ml_table_script ts, ml_table t " +
@@ -79,35 +103,35 @@ String mySQL =
     "   AND ts.version_id = "+obj.method() +
     "   AND ts.table_id   = t.table_id                  ";
 
-If you visually select from the "SELECT ... to the "; and ran 
- :'<,'>DBExecSQL    (or used the default map <Leader>se)
+If you visually select from the "SELECT ... to the "; and ran
+:'<,'>DBExecSQL    (or used the default map <Leader>se)
 
 The Java filetype support would concatenate each individual string into one
 single string.  In this case it removed the " + " and concatenated  the
-lines to result in the following (assuming this is on one line): 
+lines to result in the following (assuming this is on one line):
        SELECT s.script, ts.event, t.name , s.script_language, sv.name
-       FROM ml_script s, ml_table_script ts, ml_table t 
+       FROM ml_script s, ml_table_script ts, ml_table t
                   , ml_script_version sv
       WHERE s.script_id   = " + script_version + "
         AND ts.version_id = "+obj.method() +"
-        AND ts.table_id   = t.table_id 
+        AND ts.table_id   = t.table_id
 
 Next, it will prompt you for replacement values for the various variables or  objects you used in the string.
-Assuming you had the default behaviour turned on, you would be prompted  to supply a value for: 
+Assuming you had the default behaviour turned on, you would be prompted  to supply a value for:
                 " + script_version + "
                 "+obj.method() +"
 
-So assuming you entered: 
+So assuming you entered:
                 100
                 'Project_Yahoo'
 
-Then the resulting string sent to your database would be (again, this would technically be on one line): 
+Then the resulting string sent to your database would be (again, this would technically be on one line):
        SELECT s.script, ts.event, t.name , s.script_language, sv.name
-       FROM ml_script s, ml_table_script ts, ml_table t 
+       FROM ml_script s, ml_table_script ts, ml_table t
                   , ml_script_version sv
       WHERE s.script_id   = 100
         AND ts.version_id = 'Project_Yahoo'
-        AND ts.table_id   = t.table_id 
+        AND ts.table_id   = t.table_id
 
 Benefit:  
 You did not have to test your SQL by cutting and pasting it into a separate tool and replacing all the object and host variables yourself.  Just by visually selecting the string and running the command DBExecSQL (or the default mapping <Leader>se) the SQL statement was executed against the database and allowed to you enter host variables.
@@ -124,3 +148,31 @@ Delete  - Enter the remainder of an delete
 Drop    - Enter the remainder of a drop
 Alter   - Enter the remainder of an alter
 Create  - Enter the remainder of a create
+ 
+install details
+The zip file contains the necessary path structure.
+
+On *nix, unzip into:
+$HOME/.vim/
+
+On Windows unzip into:
+vim/vimfiles/
+
+Files:
+plugin/dbext.vim
+autoload/dbext.vim
+autoload/dbext_dbi.vim
+doc/dbext.txt
+
+To update the Vim Help, run:
+:helptags $HOME/.vim/doc  (Unix)
+:helptags $VIM/vimfiles/doc  (Windows)
+
+Dependencies
+----------------------
+The autoload/SQLComplete.vim file uses dbext.vim for dynamic code completion.  This file has been included with dbext.vim but it is normally included with the standard Vim runtime.  David Fishburn is also the author of this plugin.  It was enhanced to support SQL objects with spaces.  It can also be downloaded separately from here: http://www.vim.org/scripts/script.php?script_id=1572
+
+Maintainer
+--------------
+David Fishburn, for issues please post to the Vim mailing list, or to David directly.  
+:h dbext.txt has contact details. 
