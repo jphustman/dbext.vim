@@ -10,19 +10,22 @@ description
 This plugin contains functions/mappings/commands to enable Vim to access several databases.
 
 Current databases supported are:
-Mysql,
-PostgreSQL,
-Ingres,
-Oracle,
-Oracle Rdb (VMS),
-Sybase Adaptive Server Anywhere,
-Sybase Adaptive Server Enterprise,
-Microsoft SQL Server,
-DB2,
-Interbase,
-SQLite,
-SAP HANA,
 ODBC / Perl DBI
+Mysql
+Oracle
+Oracle Rdb (VMS)
+SAP HANA
+SAP Sybase SQL Anywhere (SA/ASA)
+SAP Sybase IQ (ASA)
+SAP Sybase Adaptive Server Enterprise (ASE)
+SAP Sybase UltraLite (UL)
+Microsoft SQL Server
+IBM DB2
+Interbase
+SQLite
+PostgreSQL
+Ingres
+Firebird
 
 For Perl's DBI layer if the database you are using is not *natively* supported by dbext, but has a DBI interface, dbext's standard feature set is available.  For those already using dbext, the DBI interface should provide a performance boost when running statements against your database.  DBI also provides an ODBC bridge, therefore any ODBC compliant database is also accessible.
 
